@@ -1,18 +1,18 @@
-import React from 'react'
-import {observer} from 'mobx-react-lite'
-import {useStore} from './Store'
+import React from 'react';
+import { observer, inject } from 'mobx-react';
 
-const App = observer(() => {
-    const store = useStore();
+const App = inject('CounterStore')(
+  observer(({ CounterStore }) => {
     return (
+      <div>
+        {CounterStore.count}
         <div>
-            {store.count}
-            <div>
-                <button onClick={()=>(store.decrement())}>-</button> 
-                <button onClick={()=>(store.increment())}>+</button>
-            </div>
+          <button onClick={() => CounterStore.decrement()}>-</button>
+          <button onClick={() => CounterStore.increment()}>+</button>
         </div>
-    )
-})
+      </div>
+    );
+  })
+);
 
-export default App
+export default App;
